@@ -1,0 +1,178 @@
+% use KOMAScript
+% change draft to false to produce final document
+\documentclass[draft=true]{scrartcl}
+
+%--------- font setup --------
+% make sure you use XeLaTeX or LuaLaTeX for true Unicode support
+% font selection is the matter of choice
+\usepackage{fontspec} % font selection
+\usepackage{microtype} % high quality font drawing
+\setromanfont[Numbers=Monospaced]{Linux Libertine O}
+\setsansfont[Numbers=Monospaced]{Linux Biolinum O}
+% use the fontawesome package if you want fancy symbols
+% the Fontawesome font must be installed as well
+\usepackage{fontawesome}
+
+
+
+%--------- mathematics support (you know you need this!) --------
+\usepackage{amsmath,amsthm,amssymb,amsfonts,stmaryrd,mathtools} % for better math
+
+%--------- nicer tables --------
+\usepackage{longtable}
+\usepackage{ctable, multirow, float}
+
+\setupctable{
+  mincapwidth=0.8\textwidth,
+  captionskip=0.5em,
+  footerwidth
+}
+
+\setlength{\tabcolsep}{12pt}
+
+% uncomment to enforce float placement HERE
+% \floatplacement{table}{H}
+
+
+%--------- nicer lists -------
+\usepackage{enumitem}
+
+
+%--------- linguistics support --------
+\usepackage{expex}     % glosses, linguistic examples etc
+
+% set up font for glosses
+\newfontfamily\glossfont{Gentium Plus Italic}[Scale=MatchLowercase,Ligatures={NoCommon, NoDiscretionary, NoHistoric, NoRequired, NoContextual}]
+\lingset{everygla=\glossfont} % setup nice font for glosses
+\def\gloss#1{\textsc{#1}}
+\def\hdr{\normalfont\bfseries}
+
+
+
+%--------- various packages --------
+\usepackage{graphicx}  % for inclusion of pictures etc.
+\usepackage{lipsum} % text fillers
+
+%--------- citations --------
+
+\usepackage{natbib} % for better control of citation and bibliography 
+% set citation style: no separator between author and year, separator between multiple citations = semicolon, separator between citation and postnote (e.g. page number) = colon
+\setcitestyle{aysep={},citesep={;},notesep={:}}
+
+%--------- hyperlinks --------
+% we set up hyperref to hide the links
+% they will work, but the document will look classy
+% use hypersetup if you want to have colors
+\usepackage[hidelinks]{hyperref}
+
+%--------- clever references --------
+\usepackage[capitalise]{cleveref}
+
+
+%--------- page setup -------
+\KOMAoptions{paper=a4} % set a4 paper
+\KOMAoptions{twoside=false} % we want to have one side for the online version
+\KOMAoptions{BCOR=15mm} % the binding correction
+\KOMAoptions{DIV=13} % how many lines
+
+
+% make sure the page dimentions are correctly calculated
+\recalctypearea 
+\usepackage{layouts}
+
+
+
+%--------- document setup -------
+\title{My report}
+\author{Jane Doe}
+
+
+
+\begin{document}
+
+% set up the title
+\maketitle
+
+	
+\section{Introduction}\label{Hello}
+\lipsum[1]
+
+
+
+\section{Data}
+
+This is an example citation\citep{forker2013a-grammar}. Or, we can also quote as if
+\citet{matsushita1984preliminary} said that. 
+
+\ctable[caption = Example, label=table:example]
+{
+l% This is the column of ones, left aligned
+c% This is the column of twos, middle aligned
+r% This is the column of threes, right aligned
+}
+{}
+{
+\FL One & Two  & Three \ML
+1   & 2    & 3  
+\NN
+1   & 2    & 3 
+\NN
+1   & 2    & 3 
+\LL
+}
+
+For data, see \cref{table:example}. \lipsum[1]
+
+
+We can also have glossed examples, like in (\nextx).
+
+\ex
+\begingl
+\gla Mary$_i$ ist sicher, dass es den Hans nicht stören 
+würde seiner Freundin ihr$_i$ Herz auszuschütten.//
+\glb Mary is sure that it the-\gloss{acc} Hans not annoy would
+his-\gloss{dat} girlfriend-\gloss{dat} her-\gloss{acc} heart-\gloss{acc} {out to
+throw}//
+\glft  ‘Mary is sure that it would not annoy John to reveal her
+heart to his girlfriend.’//
+\endgl
+\xe
+
+
+
+Or, we can also have multiple glosses in one, as in (\nextx). See expex manual for more details 
+(possibilities are endless)
+
+\pex[interpartskip=3ex]
+\a
+How much wood would a woodchuck chuck? 
+\a
+\begingl
+\gla pwa- min -kwa -pun//
+\glb Neg V Agr Tns //
+\glc {} give 2pl\gloss{nom}.3pl\gloss{acc} preterit //
+\glft ‘you (pl) didn’t give them (something)’//
+\endgl
+\a
+A woodchuck would chuck as much wood as a woodchuck could chuck if a woodchuck could chuck wood
+\xe
+
+\section{Discussion}
+
+\lipsum
+
+\section{Conclusion}
+\lipsum
+
+% Bibliography
+
+\bibliographystyle{unified.linguistic}
+\bibliography{bibliography}
+
+
+	
+\end{document}
+
+
+
+
